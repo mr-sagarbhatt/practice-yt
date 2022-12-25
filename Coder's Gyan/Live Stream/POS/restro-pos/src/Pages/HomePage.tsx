@@ -1,8 +1,8 @@
 import React from 'react'
-import Table from './components/Table'
-import { TABLE_STATUS } from './enums'
+import Table from '../components/Table'
+import { TABLE_STATUS } from '../enums'
 
-function App() {
+const HomePage = () => {
   const tables = [
     {
       id: 1,
@@ -22,14 +22,12 @@ function App() {
   ]
 
   return (
-    <div className="App">
-      <div className="flex gap-3">
-        {tables.map((table) => (
-          <Table key={table.id} tableNumber={table.tableNumber} status={table.status} />
-        ))}
-      </div>
+    <div className="flex gap-3">
+      {tables.map((table) => (
+        <Table key={table.id} tableNumber={table.tableNumber} status={table.status} />
+      ))}
     </div>
   )
 }
 
-export default App
+export default HomePage
