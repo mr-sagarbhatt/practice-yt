@@ -8,16 +8,16 @@
 let greetings: String = 'Hello Sagar'
 // greetings = 6 // ! Typescript give an error
 greetings.toLowerCase()
-console.log(greetings)
+console.log({ greetings })
 
 // * number
 let userId: number = 1
 // userId.toUpperCase() // ! Typescript give an error
-console.log(userId)
+console.log({ userId })
 
 // * boolean
 let isLoggedIn: boolean = true
-console.log(isLoggedIn)
+console.log({ isLoggedIn })
 
 // TODO: Type Inference
 // ? In TypeScript, there are several places where type inference is used to provide type information when there is no explicit type annotation.
@@ -26,7 +26,7 @@ let myNum = 6 // no explicit type annotation | We have already initialized a val
 // myNum = 'sagar' // ! Typescript give an error, however we have not defined the explicit type annotation
 
 myNum.toFixed(2)
-console.log(myNum)
+console.log({ myNum })
 
 // TODO: Special data types: any, unknown, never, undefined & null
 
@@ -36,11 +36,11 @@ console.log(myNum)
 let hero // ? inferred to be type any, such case define explicit type annotation
 const getHero = () => 'Thor'
 hero = getHero()
-console.log(hero)
+console.log({ hero })
 // let hero: string // ? explicit type annotation
 // const getHero = () => true // ! Typescript give an error
 // hero = getHero()
-// console.log(hero)
+// console.log({hero})
 
 // TODO: Functions: Default return type is void
 const addTwo = (num: number) => {
@@ -50,7 +50,7 @@ const addTwo = (num: number) => {
 }
 const resAddTwo = addTwo(5)
 // const resAddTwo = addTwo('5') // ! Typescript will not give an error, If not provided explicit type annotation in function definition for parameters
-console.log(resAddTwo)
+console.log({ resAddTwo })
 
 // * Default Values
 // ? we can omit type annotation for default parameter, it will be inferred by ts
@@ -63,7 +63,7 @@ const logInUser = (name: string, email: string, isPaid: boolean = false) => {
 // const resLogInUser = logInUser('Sagar', 'bhattsagar112@gmail.com', 'sagar') // ! Typescript will give an error, default param will inferred by ts
 const resLogInUser = logInUser('Sagar', 'bhattsagar112@gmail.com')
 // const resAddTwo = addTwo('5') // ! Typescript will not give an error, If not provided explicit type annotation in function definition
-console.log(resLogInUser)
+console.log({ resLogInUser })
 
 // * Return Type
 // * Single return type
@@ -72,7 +72,7 @@ const addTwoWithOneReturnType = (num: number): number => {
   return num + 2
 }
 const resAddTwoWithOneReturnType = addTwoWithOneReturnType(5)
-console.log(resAddTwoWithOneReturnType)
+console.log({ resAddTwoWithOneReturnType })
 
 // * Multiple return type (UNION TYPE (|))
 // ? We need to use UNION type for function which return multiple type
@@ -82,7 +82,7 @@ const addTwoWithMultiReturnType = (num: number): number | string => {
   return 'Add Val greater than 5'
 }
 const resAddTwoWithMultiReturnType = addTwoWithMultiReturnType(5)
-console.log(resAddTwoWithMultiReturnType)
+console.log({ resAddTwoWithMultiReturnType })
 
 // ? map : It will automatically
 const heros = ['thor', 'spiderman', 'ironman']
@@ -92,7 +92,7 @@ const heros = ['thor', 'spiderman', 'ironman']
 const arrHeros = heros.map((hero): string => {
   return `hero is ${hero}`
 })
-console.log(arrHeros)
+console.log({ arrHeros })
 
 // TODO: void vs never
 // * void
@@ -101,7 +101,7 @@ const consoleError = (errMsg: string): void => {
   console.error(errMsg)
 }
 consoleError('consoleError')
-console.log(consoleError('console: consoleError'))
+console.log({ fnConsoleError: consoleError('console: consoleError') })
 
 // * never
 // ? The never type represents values which are never observed. In a return type, this means that the function throws an exception or terminates execution of the program.
@@ -128,7 +128,7 @@ const createCourse = (): { name: string; price: number } => {
     price: 399,
   }
 }
-console.log(createCourse())
+console.log({ createCourse: createCourse() })
 
 // TODO: Type aliases
 type typeUser = {
@@ -138,7 +138,7 @@ type typeUser = {
 }
 
 const createUserType = (user: typeUser) => user
-console.log(createUserType(user))
+console.log({ createUserType: createUserType(user) })
 
 // TODO: Object Properties: readonly properties (can not change value) ,optional properties(?), Intersection properties(&)
 // mongodb has unique _id for every record, which should not be manipulated, so we can use read only
@@ -157,8 +157,8 @@ const userProfile: typeUserProfile = {
 }
 
 userProfile.email = 'bsaga112@gmail.com'
-// userProfile._id = 'asa' // ! Typescript will give an error, because it is a read-only property and we change its value
-console.log(userProfile)
+// userProfile._id = 'asa' // ! Typescript will give an error, because it is a read-only property and we are changing its value
+console.log({ userProfile })
 
 type typeCardNumber = {
   cardNumber: number
@@ -169,8 +169,103 @@ type typeCardDate = {
 // ? Intersection Types(&): is mainly used to combine existing object types.
 // ? here we combine typeCardNumber and typeCardDate
 type typeCardDetails = typeCardNumber &
-  typeCardNumber & {
+  typeCardDate & {
     cvv: number // ! not good practice to combine object with existing object types
   }
+const cardDetails: typeCardDetails = {
+  cardNumber: 12345,
+  cardDate: new Date(),
+  cvv: 123,
+}
+console.log({ cardDetails })
+
+// TODO: Arrays
+// ? 2 types of syntax: Both syntax are good, can choose any of them but be consistent with one
+// ? Empty array will be type of never
+// * 1st way: Using square brackets(Type[])
+// const marvelHeros = [] // ? type is never by default
+const marvelHeros: string[] = [] // ? array of strings
+const heroPower: number[] = [] // ? array of numbers
+marvelHeros.push('spiderman')
+heroPower.push(2)
+console.log({ marvelHeros, heroPower })
+
+// * 2nd way: Using a generic array type, Array<elementType>(Array<Type>)
+const marvelHeros2: Array<string> = [] // ? array of strings
+const heroPower2: Array<number> = [] // ? array of numbers
+
+type typeUser1 = {
+  name: string
+  isActive: boolean
+}
+const arrUsers: Array<typeUser1> = []
+arrUsers.push({
+  name: 'sagar',
+  isActive: true,
+})
+console.log({ arrUsers })
+
+// * Array of arrays
+const MLmodels: number[][] = [[255, 255, 255]]
+const MLmodels2: Array<Array<number>> = [[255, 255, 255]]
+
+// * ReadonlyArrays
+const marvelHeros3: readonly string[] = ['spiderman'] // ? array of strings
+const marvelHeros4: ReadonlyArray<string> = ['spiderman'] // ? array of strings
+
+// marvelHeros3.push('thor') // ! Typescript will give an error, because it is a read-only property and we are changing its value
+// marvelHeros4[0] = 'thor' // ! Typescript will give an error, because it is a read-only property and we are changing its value
+
+// TODO: UNION Type(|) -> Combination of two or more data types, recommended to use union type over any, define strict type by adding possible types
+
+let score: number | string = 33
+score = 44
+score = '55'
+
+type typeUser2 = {
+  name: string
+  id: number
+}
+type typeAdmin2 = {
+  username: string
+  id: number
+}
+let sagar: typeUser2 | typeAdmin2 = { name: 'sagar', id: 334 }
+sagar = { username: 'sagar', id: 334 }
+// const getDbId = (id: number | string) => {
+//   console.log(`DB id is: ${id}`)
+// }
+
+// * UNION Narrowing : Narrowing occurs when TypeScript can deduce a more specific type for a value based on the structure of the code.
+const getDbId = (id: number | string) => {
+  // id.toLowerCase() // ! Typescript will give an error, because type of id is either number or string, and toLowerCase() is not applied on type number
+  // ? we need to check the type of id before performing any operation on it
+  if (typeof id === 'string') {
+    id.toLowerCase()
+  }
+}
+getDbId(3)
+getDbId('3')
+
+// * UNION with array
+const data: Array<number> = [1, 2, 3]
+const data2: Array<string> = ['1', '2', '3']
+const data3: Array<number | string> = [1, 2, '3']
+const data4: (number | string)[] = [1, 2, '3']
+
+// * literal assignment
+let seatAllotment: 'aisle' | 'middle' | 'window'
+seatAllotment = 'aisle'
+// seatAllotment = 'crew' // ! Typescript will give an error, if we pass value other than 3.14
+
+// TODO: Tuples -> Specialized array with some restrictions, need to place type inside of array
+// ? A tuple type is another sort of Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions.
+const arrUsers1: Array<string | number> = [1, 'sb', 'sb', 1] // ? In array position of string and number type do not matters, and no restriction for array length
+console.log({ arrUsers1 })
+// ? Here we can convert it to tuples as the position of type matters
+// const arrUsers2: [string, number] = [1, 'sb'] // ! Typescript will give an error, as we have not added value with specified types
+// const arrUsers3: [string, number] = ['sb', 1, 'sb'] // ! Typescript will give an error, as we have added more values then specified
+const arrUsers3: [string, number] = ['sb', 1] // ? Here position of string and number type do not matters
+console.log({ arrUsers3 })
 
 export {}
