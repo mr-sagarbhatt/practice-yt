@@ -258,14 +258,74 @@ let seatAllotment: 'aisle' | 'middle' | 'window'
 seatAllotment = 'aisle'
 // seatAllotment = 'crew' // ! Typescript will give an error, if we pass value other than 3.14
 
-// TODO: Tuples -> Specialized array with some restrictions, need to place type inside of array
-// ? A tuple type is another sort of Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions.
-const arrUsers1: Array<string | number> = [1, 'sb', 'sb', 1] // ? In array position of string and number type do not matters, and no restriction for array length
+// TODO: Tuples -> Specialized array with some restrictions, need to place type inside of array [string, number], ex: rgb value
+// ? A tuple type is another sort of Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions. But there is one problem that we can perform array methods on it.
+// * Array: In array position of string and number type do not matters, and no restriction for array length
+const arrUsers1: Array<string | number> = [1, 'sb', 'sb', 1]
 console.log({ arrUsers1 })
-// ? Here we can convert it to tuples as the position of type matters
-// const arrUsers2: [string, number] = [1, 'sb'] // ! Typescript will give an error, as we have not added value with specified types
-// const arrUsers3: [string, number] = ['sb', 1, 'sb'] // ! Typescript will give an error, as we have added more values then specified
-const arrUsers3: [string, number] = ['sb', 1] // ? Here position of string and number type do not matters
+// * Tuple: In tuples length and order of the array is matters
+// const arrUsers2: [string, number] = [1, 'sb'] // ! Typescript will give an error, as we have not added value in specified order of types
+// const arrUsers3: [string, number] = ['sb', 1, 'sb'] // ! Typescript will give an error, as we have added more values then specified order of types
+const arrUsers3: [string, number] = ['sb', 1] // ? Here position of string and number type matters
 console.log({ arrUsers3 })
+
+let rgb: [number, number, number] // ? We can use tuple for rgb values where we have only three values which are numbers
+rgb = [255, 123, 112]
+
+// ! there is one problem in tuple that we can perform array methods on it.
+type typeUserTuple = [number, string]
+const userTuple: typeUserTuple = [112, 'bhattsagar112@gmail.com']
+userTuple[1] = 'bsaga112@gmail.com'
+userTuple.push(1, 's')
+userTuple.push(1, 's')
+userTuple.pop()
+console.log({ userTuple })
+
+// TODO: Enums -> Provide a set of values, So it will restrict the choice, Ex.can be used in ecommerce to restrict order status
+// ? enum value starts with 0 and incremented by 1, we can override this value by assigning a new value
+enum SeatChoice {
+  AISLE,
+  MIDDEL = 10,
+  WINDOW,
+  FOURTH = 22,
+}
+
+// ? If we assign a string value, then we need to a value for all enum members
+enum SeatChoice2 {
+  AISLE = 'aisle',
+  MIDDEL = 10,
+  WINDOW,
+  FOURTH = 22,
+}
+// * When enum transpiled in js it creates a IIFE (Immediately Invoked Function Expression), To overcome this thing we can add const before enum declaration
+const enum SeatChoice3 {
+  AISLE = 'aisle',
+  MIDDEL = 10,
+  WINDOW,
+  FOURTH = 22,
+}
+const sbSeat = SeatChoice3.AISLE
+console.log({ sbSeat })
+
+// TODO: Interface
+interface IUser {
+  readonly dbId: number
+  email: string
+  userId: number
+  googleId?: string
+  // startTrial: () => string // * 1way to decalre function
+  startTrial(): string // * 2way to decalre function
+  getCoupon(couponName: string, value: number): number // * Typescript will not give you an error, if we declare the method without any params
+}
+const user1: IUser = {
+  dbId: 22,
+  email: 'bhattsagar112@gmail.com',
+  userId: 2211,
+  startTrial: () => user1.email,
+  // getCoupon: () => 10, // ! Typescript will not give you an error, if we declare the method without any params
+  getCoupon: (name: 'sagar10', val: 10) => val,
+}
+// console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon() }) // ! Typescript will give you an error, if we do not pass the param values
+console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon('sagar11', 11) })
 
 export {}

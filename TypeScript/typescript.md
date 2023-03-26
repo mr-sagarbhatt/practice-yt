@@ -105,4 +105,15 @@
     Static/Dynamic Typing is about when type information is acquired (Either at compile time or at runtime)
     Strong/Weak Typing is about how strictly types are distinguished (e.g. whether the language tries to do an implicit conversion from strings to numbers).
 
+## [_*Tuple*_]()
+
+    A tuple type is another sort of Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions. "But there is one problem that we can perform array methods on it."
+
+## [_*Enum*_]()
+
+    Provide a set of values, So it will restrict the choice, Ex.can be used in ecommerce to restrict order status.
+    enum value starts with 0 and incremented by 1, we can override this value by assigning a new value.
+    If we assign a string value, then we need to provide a value for all enum members.
+    "When enum transpiled in js it creates a IIFE (Immediately Invoked Function Expression), To overcome this thing we can add const before enum declaration"
+
 </samp>

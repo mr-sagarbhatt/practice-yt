@@ -138,14 +138,14 @@ console.log({ cardDetails: cardDetails });
 // TODO: Arrays
 // ? 2 types of syntax: Both syntax are good, can choose any of them but be consistent with one
 // ? Empty array will be type of never
-// * 1st way(Type[])
+// * 1st way: Using square brackets(Type[])
 // const marvelHeros = [] // ? type is never by default
 var marvelHeros = []; // ? array of strings
 var heroPower = []; // ? array of numbers
 marvelHeros.push('spiderman');
 heroPower.push(2);
 console.log({ marvelHeros: marvelHeros, heroPower: heroPower });
-// * 2nd way(Array<Type>)
+// * 2nd way: Using a generic array type, Array<elementType>(Array<Type>)
 var marvelHeros2 = []; // ? array of strings
 var heroPower2 = []; // ? array of numbers
 var arrUsers = [];
@@ -168,8 +168,72 @@ score = 44;
 score = '55';
 var sagar = { name: 'sagar', id: 334 };
 sagar = { username: 'sagar', id: 334 };
+// const getDbId = (id: number | string) => {
+//   console.log(`DB id is: ${id}`)
+// }
+// * UNION Narrowing : Narrowing occurs when TypeScript can deduce a more specific type for a value based on the structure of the code.
 var getDbId = function (id) {
-    console.log("DB id is: ".concat(id));
+    // id.toLowerCase() // ! Typescript will give an error, because type of id is either number or string, and toLowerCase() is not applied on type number
+    // ? we need to check the type of id before performing any operation on it
+    if (typeof id === 'string') {
+        id.toLowerCase();
+    }
 };
 getDbId(3);
 getDbId('3');
+// * UNION with array
+var data = [1, 2, 3];
+var data2 = ['1', '2', '3'];
+var data3 = [1, 2, '3'];
+var data4 = [1, 2, '3'];
+// * literal assignment
+var seatAllotment;
+seatAllotment = 'aisle';
+// seatAllotment = 'crew' // ! Typescript will give an error, if we pass value other than 3.14
+// TODO: Tuples -> Specialized array with some restrictions, need to place type inside of array [string, number], ex: rgb value
+// ? A tuple type is another sort of Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions. But there is one problem that we can perform array methods on it.
+// * Array: In array position of string and number type do not matters, and no restriction for array length
+var arrUsers1 = [1, 'sb', 'sb', 1];
+console.log({ arrUsers1: arrUsers1 });
+// * Tuple: In tuples length and order of the array is matters
+// const arrUsers2: [string, number] = [1, 'sb'] // ! Typescript will give an error, as we have not added value in specified order of types
+// const arrUsers3: [string, number] = ['sb', 1, 'sb'] // ! Typescript will give an error, as we have added more values then specified order of types
+var arrUsers3 = ['sb', 1]; // ? Here position of string and number type matters
+console.log({ arrUsers3: arrUsers3 });
+var rgb; // ? We can use tuple for rgb values where we have only three values which are numbers
+rgb = [255, 123, 112];
+var userTuple = [112, 'bhattsagar112@gmail.com'];
+userTuple[1] = 'bsaga112@gmail.com';
+userTuple.push(1, 's');
+userTuple.push(1, 's');
+userTuple.pop();
+console.log({ userTuple: userTuple });
+// TODO: Enums -> Provide a set of values, So it will restrict the choice, Ex.can be used in ecommerce to restrict order status
+// ? enum value starts with 0 and incremented by 1, we can override this value by assigning a new value
+var SeatChoice;
+(function (SeatChoice) {
+    SeatChoice[SeatChoice["AISLE"] = 0] = "AISLE";
+    SeatChoice[SeatChoice["MIDDEL"] = 10] = "MIDDEL";
+    SeatChoice[SeatChoice["WINDOW"] = 11] = "WINDOW";
+    SeatChoice[SeatChoice["FOURTH"] = 22] = "FOURTH";
+})(SeatChoice || (SeatChoice = {}));
+// ? If we assign a string value, then we need to a value for all enum members
+var SeatChoice2;
+(function (SeatChoice2) {
+    SeatChoice2["AISLE"] = "aisle";
+    SeatChoice2[SeatChoice2["MIDDEL"] = 10] = "MIDDEL";
+    SeatChoice2[SeatChoice2["WINDOW"] = 11] = "WINDOW";
+    SeatChoice2[SeatChoice2["FOURTH"] = 22] = "FOURTH";
+})(SeatChoice2 || (SeatChoice2 = {}));
+var sbSeat = "aisle" /* SeatChoice3.AISLE */;
+console.log({ sbSeat: sbSeat });
+var user1 = {
+    dbId: 22,
+    email: 'bhattsagar112@gmail.com',
+    userId: 2211,
+    startTrial: function () { return user1.email; },
+    // getCoupon: () => 10, // ! Typescript will not give you an error, if we declare the method without any params
+    getCoupon: function (name, val) { return val; },
+};
+// console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon() }) // ! Typescript will give you an error, if we do not pass the param values
+console.log({ user1: user1, email: user1.startTrial(), coupon: user1.getCoupon('sagar11', 11) });
