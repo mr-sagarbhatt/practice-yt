@@ -105,15 +105,27 @@
     Static/Dynamic Typing is about when type information is acquired (Either at compile time or at runtime)
     Strong/Weak Typing is about how strictly types are distinguished (e.g. whether the language tries to do an implicit conversion from strings to numbers).
 
-## [_*Tuple*_]()
+## [_*Tuple*_](https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types)
 
     A tuple type is another sort of Array type that knows exactly how many elements it contains, and exactly which types it contains at specific positions. "But there is one problem that we can perform array methods on it."
 
-## [_*Enum*_]()
+## [_*Enum*_](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#enums)
 
     Provide a set of values, So it will restrict the choice, Ex.can be used in ecommerce to restrict order status.
     enum value starts with 0 and incremented by 1, we can override this value by assigning a new value.
     If we assign a string value, then we need to provide a value for all enum members.
     "When enum transpiled in js it creates a IIFE (Immediately Invoked Function Expression), To overcome this thing we can add const before enum declaration"
+
+## [_*Interface*_](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#interfaces)
+
+    An interface declaration is another way to name an object type. created using interface keyword.
+    Reopening of interface: Adding new fields to an existing interface.
+    Inheritance in inteface | Extending an interface : using extends keyword
+    Typescript will not give you an error, if we declare the method without any params but will give you an error, if we do not pass the param values
+
+## [_* Type vs Interface*_](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+
+    "Type - A type cannot be changed after being created, Interface - You can add new fields to an existing interface (Reopening of interface)"
+    "Type - Extending a type via intersections : using &, Interface - Inheritance in inteface | Extending an interface : using extends keyword"
 
 </samp>

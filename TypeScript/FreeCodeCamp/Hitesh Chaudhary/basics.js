@@ -231,9 +231,21 @@ var user1 = {
     dbId: 22,
     email: 'bhattsagar112@gmail.com',
     userId: 2211,
+    githubToken: 'github',
+    startTrial: function () { return user1.email; },
+    // getCoupon: () => 10,
+    getCoupon: function (name, val) { return val; },
+};
+// console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon() }) // ! Typescript will give you an error, if we do not pass the required param values
+console.log({ user1: user1, email: user1.startTrial(), coupon: user1.getCoupon('sagar11', 11) });
+var admin = {
+    role: 'admin',
+    dbId: 22,
+    email: 'bhattsagar112@gmail.com',
+    userId: 2211,
+    githubToken: 'github',
     startTrial: function () { return user1.email; },
     // getCoupon: () => 10, // ! Typescript will not give you an error, if we declare the method without any params
     getCoupon: function (name, val) { return val; },
 };
-// console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon() }) // ! Typescript will give you an error, if we do not pass the param values
-console.log({ user1: user1, email: user1.startTrial(), coupon: user1.getCoupon('sagar11', 11) });
+console.log({ admin: admin });

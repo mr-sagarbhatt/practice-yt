@@ -130,7 +130,7 @@ const createCourse = (): { name: string; price: number } => {
 }
 console.log({ createCourse: createCourse() })
 
-// TODO: Type aliases
+// TODO: Type aliases - Use type aliases for objects so that we don't need to write types at all places where we use that object.
 type typeUser = {
   name: string
   email: string
@@ -167,6 +167,8 @@ type typeCardDate = {
   cardDate: Date
 }
 // ? Intersection Types(&): is mainly used to combine existing object types.
+// * DIFF: Type - A type cannot be changed after being created, Interface - You can add new fields to an existing interface (Reopening of interface)
+// * DIFF: Type - Extending a type via intersections : using &,Interface - Inheritance in inteface | Extending an interface : using extends keyword
 // ? here we combine typeCardNumber and typeCardDate
 type typeCardDetails = typeCardNumber &
   typeCardDate & {
@@ -307,7 +309,7 @@ const enum SeatChoice3 {
 const sbSeat = SeatChoice3.AISLE
 console.log({ sbSeat })
 
-// TODO: Interface
+// TODO: Interface - An interface declaration is another way to name an object type.
 interface IUser {
   readonly dbId: number
   email: string
@@ -315,17 +317,45 @@ interface IUser {
   googleId?: string
   // startTrial: () => string // * 1way to decalre function
   startTrial(): string // * 2way to decalre function
-  getCoupon(couponName: string, value: number): number // * Typescript will not give you an error, if we declare the method without any params
+  getCoupon(couponName: string, value: number): number
 }
+// * Reopening of interface: Adding new fields to an existing interface
+interface IUser {
+  githubToken: string
+}
+// * Inheritance in inteface | Extending an interface : using extends keyword
+interface IDemoInteface {
+  demo?: boolean
+}
+
+// * DIFF: Type - A type cannot be changed after being created, Interface - You can add new fields to an existing interface (Reopening of interface)
+// * DIFF: Type - Extending a type via intersections : using &,Interface - Inheritance in inteface | Extending an interface : using extends keyword
+
+interface IAdmin extends IUser, IDemoInteface {
+  role: 'admin' | 'ta' | 'learner'
+}
+
 const user1: IUser = {
   dbId: 22,
   email: 'bhattsagar112@gmail.com',
   userId: 2211,
+  githubToken: 'github',
   startTrial: () => user1.email,
-  // getCoupon: () => 10, // ! Typescript will not give you an error, if we declare the method without any params
+  // getCoupon: () => 10,
   getCoupon: (name: 'sagar10', val: 10) => val,
 }
-// console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon() }) // ! Typescript will give you an error, if we do not pass the param values
+// console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon() }) // ! Typescript will give you an error, if we do not pass the required param values
 console.log({ user1, email: user1.startTrial(), coupon: user1.getCoupon('sagar11', 11) })
+
+const admin: IAdmin = {
+  role: 'admin',
+  dbId: 22,
+  email: 'bhattsagar112@gmail.com',
+  userId: 2211,
+  githubToken: 'github',
+  startTrial: () => user1.email,
+  getCoupon: (name: 'sagar10', val: 10) => val,
+}
+console.log({ admin })
 
 export {}
