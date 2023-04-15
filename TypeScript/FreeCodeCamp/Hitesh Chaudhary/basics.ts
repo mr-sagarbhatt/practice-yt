@@ -168,7 +168,7 @@ type typeCardDate = {
 }
 // ? Intersection Types(&): is mainly used to combine existing object types.
 // * DIFF: Type - A type cannot be changed after being created, Interface - You can add new fields to an existing interface (Reopening of interface)
-// * DIFF: Type - Extending a type via intersections : using &,Interface - Inheritance in inteface | Extending an interface : using extends keyword
+// * DIFF: Type - Extending a type via intersections : using &,Interface - Inheritance in interface | Extending an interface : using extends keyword
 // ? here we combine typeCardNumber and typeCardDate
 type typeCardDetails = typeCardNumber &
   typeCardDate & {
@@ -283,11 +283,11 @@ userTuple.push(1, 's')
 userTuple.pop()
 console.log({ userTuple })
 
-// TODO: Enums -> Provide a set of values, So it will restrict the choice, Ex.can be used in ecommerce to restrict order status
+// TODO: Enums -> Provide a set of values, So it will restrict the choice, Ex.can be used in e-commerce to restrict order status
 // ? enum value starts with 0 and incremented by 1, we can override this value by assigning a new value
 enum SeatChoice {
   AISLE,
-  MIDDEL = 10,
+  MIDDLE = 10,
   WINDOW,
   FOURTH = 22,
 }
@@ -295,14 +295,14 @@ enum SeatChoice {
 // ? If we assign a string value, then we need to a value for all enum members
 enum SeatChoice2 {
   AISLE = 'aisle',
-  MIDDEL = 10,
+  MIDDLE = 10,
   WINDOW,
   FOURTH = 22,
 }
 // * When enum transpiled in js it creates a IIFE (Immediately Invoked Function Expression), To overcome this thing we can add const before enum declaration
 const enum SeatChoice3 {
   AISLE = 'aisle',
-  MIDDEL = 10,
+  MIDDLE = 10,
   WINDOW,
   FOURTH = 22,
 }
@@ -315,23 +315,23 @@ interface IUser {
   email: string
   userId: number
   googleId?: string
-  // startTrial: () => string // * 1way to decalre function
-  startTrial(): string // * 2way to decalre function
+  // startTrial: () => string // * 1way to declare function
+  startTrial(): string // * 2way to declare function
   getCoupon(couponName: string, value: number): number
 }
 // * Reopening of interface: Adding new fields to an existing interface
 interface IUser {
   githubToken: string
 }
-// * Inheritance in inteface | Extending an interface : using extends keyword
-interface IDemoInteface {
+// * Inheritance in interface | Extending an interface : using extends keyword
+interface IDemoInterface {
   demo?: boolean
 }
 
 // * DIFF: Type - A type cannot be changed after being created, Interface - You can add new fields to an existing interface (Reopening of interface)
-// * DIFF: Type - Extending a type via intersections : using &,Interface - Inheritance in inteface | Extending an interface : using extends keyword
+// * DIFF: Type - Extending a type via intersections : using &,Interface - Inheritance in interface | Extending an interface : using extends keyword
 
-interface IAdmin extends IUser, IDemoInteface {
+interface IAdmin extends IUser, IDemoInterface {
   role: 'admin' | 'ta' | 'learner'
 }
 
