@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-ecommerce-microservice",
+  "version": "1.0.0",
+  "description": "nodejs-ecommerce-microservice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mr-sagarbhatt",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0"
+  }
+}
